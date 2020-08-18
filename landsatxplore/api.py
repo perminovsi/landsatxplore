@@ -160,6 +160,8 @@ class API(object):
         """
         if is_product_id(id_list[0]):
             id_list = self.lookup(dataset, id_list, inverse=True)
-        params = {'datasetName': dataset, 'entityIds': id_list}
+        params = {'datasetName': dataset, 'entityIds': id_list,
+                  'includeDataAccess': True, 'includeBrowse': True,
+                  'includeSpatial': True}
         response = self.request('metadata', **params)
         return {item['displayId']:item for item in response}
