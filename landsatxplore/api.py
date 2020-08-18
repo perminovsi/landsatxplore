@@ -162,4 +162,4 @@ class API(object):
             id_list = self.lookup(dataset, id_list, inverse=True)
         params = {'datasetName': dataset, 'entityIds': id_list}
         response = self.request('metadata', **params)
-        return response['data']
+        return {item['displayId']:item for item in response}
