@@ -4,7 +4,7 @@ import json
 
 import requests
 
-from landsatxplore.datamodels import spatial_filter, temporal_filter
+from landsatxplore.datamodels import spatial_filter, temporal_filter, wrs_filter
 from landsatxplore.exceptions import EarthExplorerError
 from landsatxplore.util import is_product_id
 
@@ -60,6 +60,7 @@ class API(object):
             latitude=None,
             longitude=None,
             bbox=None,
+            wrs=None,
             max_cloud_cover=None,
             start_date=None,
             end_date=None,
@@ -77,6 +78,8 @@ class API(object):
             Longitude of the point of interest.
         bbox : tuple, optional
             (xmin, ymin, xmax, ymax) of the bounding box.
+        wrs : str, optional
+            Path and Row number as string.
         max_cloud_cover : int, optional
             Max. cloud cover in percent (1-100).
         start_date : str, optional
@@ -103,6 +106,8 @@ class API(object):
             params.update(spatialFilter=spatial_filter(latitude, longitude))
         if bbox:
             params.update(spatialFilter=spatial_filter(*bbox))
+        if wrs:
+            params.update(additionalCriteria=wrs_filter(wrs))
         if max_cloud_cover:
             params.update(maxCloudCover=max_cloud_cover)
         if start_date:

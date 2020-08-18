@@ -76,3 +76,13 @@ def temporal_filter(start_date, end_date=None):
         'startDate': start_date,
         'endDate': end_date
     }
+
+def wrs_filter(wrs):
+    path, row = int(wrs[:3]), int(wrs[3:])
+    return {
+        'filterType': 'and',
+        'childFilters': [
+            {'filterType': 'value','fieldId': 20514,'value': path},
+            {'filterType': 'value','fieldId': 20516,'value': row},
+        ]
+    }
