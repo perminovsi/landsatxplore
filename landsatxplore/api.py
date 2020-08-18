@@ -61,6 +61,7 @@ class API(object):
             longitude=None,
             bbox=None,
             wrs=None,
+            min_cloud_cover=None,
             max_cloud_cover=None,
             start_date=None,
             end_date=None,
@@ -80,6 +81,8 @@ class API(object):
             (xmin, ymin, xmax, ymax) of the bounding box.
         wrs : str, optional
             Path and Row number as string.
+        min_cloud_cover : int, optional
+            Min. cloud cover in percent (0-100).
         max_cloud_cover : int, optional
             Max. cloud cover in percent (1-100).
         start_date : str, optional
@@ -110,6 +113,8 @@ class API(object):
             params.update(additionalCriteria=wrs_filter(wrs))
         if max_cloud_cover:
             params.update(maxCloudCover=max_cloud_cover)
+        if min_cloud_cover:
+            params.update(minCloudCover=min_cloud_cover)
         if start_date:
             params.update(temporalFilter=temporal_filter(start_date, end_date))
         if months:
